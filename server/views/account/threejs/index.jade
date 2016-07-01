@@ -18,7 +18,8 @@ block head
   title Euglena Modeling
 
 block feet
-  script(src='/views/account/threejs/index.min.js?#{cacheBreaker}')
+  //script(src='/views/account/threejs/index.min.js?#{cacheBreaker}')
+  script(src='/views/account/threejs/index.js')
 
 block body
   div.main-header
@@ -78,7 +79,8 @@ block body
       div.row(style='margin:5% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%;')
         div.col(style='margin:0% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%;')
           div.control-group(style='float:left; width:65%;')       
-            input.form-control.cp-name(type='text', name='surgeName', value='10', style='text-align:left; padding:0% 0% 0% 5px;font-size:12px;float:left; background-color:#5ad3c9;')
+            input.form-control.cp-name(type='text', disabled='true', name='surgeName', value='10', style='text-align:left; padding:0% 0% 0% 5px;font-size:12px;float:left; background-color:#5ad3c9;')
+            //label.label.main(name='surgeName', value='10', style='text-align:left; padding:0% 0% 0% 5px;font-size:12px;float:left; background-color:#5ad3c9;')
           div.col 
             div.control-group(style='float:left; width:35%;')
               input.form-control.cp-name(type='number', name='surge', value='60', step='10', min='0', max='150', style=' float:left; background-color:#5ad3c9;')
@@ -92,7 +94,7 @@ block body
       div.row(style='margin:5% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%;')
         div.col(style='margin:0% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%;')
           div.control-group(style='float:left; width:65%;')       
-            input.form-control.cp-name(type='text', name='couplingName', value='-3', style=' float:left; background-color:#e6e7a6;')
+            input.form-control.cp-name(type='text', disabled='true', name='couplingName', value='-3', style=' float:left; background-color:#e6e7a6;')
           div.col 
             div.control-group(style='float:left; width:35%;')
               input.form-control.cp-name(type='number', name='coupling', value='-3', step='5', min='-50', max='50', style='float:left; background-color:#d1d35a;')
@@ -106,7 +108,7 @@ block body
       div.row(style='margin:5% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%; ')
         div.col(style='margin:0% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%;')
           div.control-group(style='float:left; width:65%;')       
-            input.form-control.cp-name(type='text', name='rollName', value='Roll', style='float:left; background-color:#e6a2d2;')
+            input.form-control.cp-name(type='text', disabled='true', name='rollName', value='Roll', style='float:left; background-color:#e6a2d2;')
           div.col 
             div.control-group(style='float:left; width:35%;')
               input.form-control.cp-name(type='number', name='roll', value='1', step='1', min='0', max='8', style='float:left; background-color:#d35aaf;')

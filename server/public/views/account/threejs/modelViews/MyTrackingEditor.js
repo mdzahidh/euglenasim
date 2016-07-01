@@ -93,7 +93,7 @@ MyTrackingEditor=function(app) {
       var me=this;
       Object.keys(me.model.attributes).forEach(function(name) {
         var textbox=me.$el.find('[name="'+ name +'"]')['0'];
-        if(textbox) {textbox.disabled=toggle;}
+        //if(textbox) {textbox.disabled=toggle;}
         var slider=$('#'+name+'Slider')['0'];
         //DEBUG
         //DEBUG
@@ -203,6 +203,7 @@ MyTrackingEditor=function(app) {
               value=me.model.attributes[name][0];
             } 
           }
+          
           textbox.myId=name;
           textbox.value=value;
           textbox.onchange=handleChange;
@@ -212,9 +213,6 @@ MyTrackingEditor=function(app) {
             //Clamp and make integer
             var newValue = Math.floor(Math.min(Number(textbox.value), Number(textbox.max)));
             newValue = Math.floor(Math.max(Number(textbox.min), newValue));
-            if(''+newValue !== textbox.value) {
-              window.alert("Invalid "+textbox.name+": Only integer values between "+Number(textbox.min)+" and "+Number(textbox.max)+".");
-            }
             textbox.value=newValue;
           };
           //end 20160629 - casey - fix inputs 

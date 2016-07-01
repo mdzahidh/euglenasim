@@ -91,15 +91,20 @@
       this.setpath=new app.SetPath(JSON.parse(unescape($('#data-setpath').html())));
       this.modelParameters=new app.ModelParameters(JSON.parse( unescape($('#data-modelParameters').html())));
 
+
       if(this.modelParameters.get('surgeName')[0]===null || this.modelParameters.get('surgeName')[0]===undefined) {
-        this.modelParameters.get('surgeName').push('Name?');
+        this.modelParameters.get('surgeName').push('Surge');
       }
       if(this.modelParameters.get('couplingName')[0]===null || this.modelParameters.get('couplingName')[0]===undefined) {
-        this.modelParameters.get('couplingName').push('Name?');
+        this.modelParameters.get('couplingName').push('Coupling');
       }
       if(this.modelParameters.get('rollName')[0]===null || this.modelParameters.get('rollName')[0]===undefined) {
-        this.modelParameters.get('rollName').push('Name?');
+        this.modelParameters.get('rollName').push('Roll');
       }
+
+      this.modelParameters.get('surgeName')[0] = 'Surge';
+      this.modelParameters.get('couplingName')[0] = 'Coupling';
+      this.modelParameters.get('rollName')[0] = 'Roll';
 
       console.log('index.js initialize', this.modelParameters.id, this.modelParameters.attributes);
       console.log('index.js initialize', this.modelParameters.id);
