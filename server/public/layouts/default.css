@@ -1,0 +1,90 @@
+@gray-darker:  lighten(#000, 13.5%); // #222
+@gray-dark:    lighten(#000, 20%);   // #333
+@gray:         lighten(#000, 33.5%); // #555
+@gray-light:   lighten(#000, 46.7%); // #777
+@gray-lighter: lighten(#000, 93.5%); // #eee
+@brand-primary: #428bca;
+@brand-success: #5cb85c;
+@brand-info:    #5bc0de;
+@brand-warning: #f0ad4e;
+@brand-danger:  #d9534f;
+
+.body {
+  padding:0px;
+  margin:0px;
+  font: 14px "Lucida Grande", Arial, sans-serif;
+  background-color: #e0efff;
+  width: 100%;
+  display: inline-block;
+}
+
+.main-header {
+  margin:0px 0px 0px 0px;
+  padding:0px 0px 0px 0px;
+  width:950px;
+  height:100px;
+  min-width:400px;
+  max-width:1280px;
+  opacity:1.0;
+  background-color: #e0efff;
+}
+
+.main-row {
+  background-color: #e0efff;
+  margin:0px 0px 0px 0px;
+  padding:0px 0px 0px 0px;
+  width:950px;
+  height:700px;
+  min-width:400px;
+  max-width:1280px;
+}
+
+.main-row-main-col {
+  background-color: #50085c;
+  margin:0px 0px 0px 0px;
+  padding:0px 0px 0px 0px;
+  height:100%;
+  width:75%;
+}
+.main-row-side-col {
+  background-color: #e0eff0;
+  margin:0px 0px 0px 0.1%;
+  padding:0px 0px 0px 0px;
+  height:100%;
+  width:24.9%;
+}
+
+.main-row-main-col-subrow-info {
+  background-color: #e0efff;
+  margin:0px 0px 0px 0px;
+  padding:0px 0px 0px 0px;
+  height:20%;
+  width:100%;
+  text-align:center;
+  font-size:24px;
+}
+.main-row-main-col-subrow-view {
+  background-color: #e0efff;
+  margin:0px 0px 0px 0px;
+  padding:0px 0px 0px 0px;
+  height:80%;
+  width:100%;
+}
+
+.txtboxinfoA {
+  margin:2% 0% 0% 0%;
+  padding:0% 0% 0% 0%;
+  width:25%;
+  height:100%;  
+  font-size:20pt;
+  float:left;
+}
+.txtboxinfoB {
+  margin:2% 0% 0% 0%;
+  padding:0% 0% 0% 0%;
+  width:75%;
+  height:100%;  
+  font-size:20pt;
+  float:left;
+}
+

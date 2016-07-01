@@ -1,0 +1,106 @@
+/*Major Bin*/
+.canvas-div-bin {
+	margin:0% 0% 0% 0%;
+        padding:1% 1% 1% 1%;
+	background-color:#ffc0ee;
+	width:100%;
+        height:520px;
+        float:left;
+}
+
+
+/**Major Subs*/
+  .canvas-div-col-left {
+          margin:0% 0% 0% 0%;
+          padding:0% 0% 0% 0%;
+          background-color:#00c0ee;
+          width:65%;
+          height:100%;
+          float:left;
+  }
+  .canvas-div-col-mid {
+          margin:0% 1% 0% 2%;
+          padding:1% 1% 1% 1%;
+          background-color:#a0c0ee;
+          width:31%;
+          height:100%;
+          float:left;
+  }
+  .canvas-div-col-right {
+          margin:0% 0% 0% 0%;
+          padding:0% 0% 0% 0%;
+          background-color:#00c0ee;
+          width:1%;
+          height:100%;
+          float:left;
+  }
+
+/****Major Sub Left Sections*/
+    .canvas-div-col-left-left {
+            margin:0% 0% 0% 0%;
+            padding:0% 0% 0% 0%;
+            background-color:#a000ee;
+            width:5%;
+            height:100%;
+            float:left;
+    }
+    .canvas-div-col-left-mid {
+            margin:0% 0% 0% 0%;
+            padding:0% 0% 0% 0%;
+            background-color:#F000e0;
+            width:90%;
+            height:100%;
+            float:left;
+    }
+    .canvas-div-col-left-right {
+            margin:0% 0% 0% 0%;
+            padding:0% 0% 0% 0%;
+            background-color:#a000ee;
+            width:5%;
+            height:100%;
+            float:left;
+    }
+/*****sub left mids*/
+      .canvas-div-col-left-midT {
+              margin:0% 0% 0% 0%;
+              padding:0% 0% 0% 0%;
+              background-color:#0FF0e0;
+              width:100%;
+              height:6%;
+              float:left;
+      }
+      .canvas-div-col-left-midM {
+              margin:0% 0% 0% 0%;
+              padding:0% 0% 0% 0%;
+              background-color:#0Fa0e0;
+              width:100%;
+              height:88%;
+              float:left;
+      }
+      .canvas-div-col-left-midB {
+              margin:0% 0% 0% 0%;
+              padding:0% 0% 0% 0%;
+              background-color:#0ff0e0;
+              width:100%;
+              height:6%;
+              float:left;
+      }
+
+
+/****Major Sub Mid Sections*/
+    .canvas-div-col-mid-top {
+            margin:0% 0% 2% 0%;
+            padding:0% 0% 0% 0%;
+            background-color:#a0aaee;
+            width:100%;
+            height:49%;
+            float:left;
+    }
+    .canvas-div-col-mid-bot {
+            margin:0% 0% 0% 0%;
+            padding:0% 0% 0% 0%;
+            background-color:#a0ffee;
+            width:100%;
+            height:49%;
+            float:left;
+    }

@@ -1,0 +1,340 @@
+'use strict';
+/*
+{ "_id" : ObjectId("555111f340b0a14830372d12") }
+{ "_id" : ObjectId("55515b348061d07c4f4cc972") }
+{ "_id" : ObjectId("55524844996d80183f7fe8c8") }
+*/
+var SETPATH_ID='55524844996d80183f7fe8c8';
+
+var async=require('async');
+var _serverTag='p';
+var _serverTab='modeling';
+var _myResRender='account/'+_serverTab+'/index';
+exports.init = function(req, res, next){
+  renderSettings(req, res, next, '');
+};
+var renderSettings = function(req, res, next, oauthMessage) {
+  var outcome={};
+  var getAccountData=function(callback) {
+    req.app.db.models.Account.findById(req.user.roles.account.id, 'user imageSetPath').exec(function(err, account) {
+      if(err) {return callback(err, null);}
+      outcome.account=account;
+      return callback(null, account);
+    });
+  };
+  var getUserData=function(callback) {
+    req.app.db.models.User.findById(req.user.id, 'username').exec(function(err, user) {
+      if(err) {callback(err, null);}
+      outcome.user=user;
+      return callback(null, user);
+    });
+  };
+  var getImageSet=function(id, callback) {
+    req.app.db.models.ImageSet.findById(id, '').exec(function(err, imageset) {
+      if(err) {callback(err, null);}
+      outcome.imageset=imageset;
+      callback(null, imageset);
+    });
+  };
+  var getSetPathAndImageset=function(callback) {
+    req.app.db.models.SetPath.findById(SETPATH_ID, '').exec(function(err, setpath) {
+      if(err) {callback(err, null);}
+      outcome.setpath=setpath;
+      //Get SetPath ImageSet 
+      getImageSet(outcome.setpath.imageset.id, function(err, imageset) {
+        outcome.imageset=imageset;
+        return callback(null, {setpath:setpath, imageset:imageset});
+      });
+    });
+  };
+  var getNewModelParameters=function(callback) {
+    _getNewModelParameters(req, function(err, newModelParameters) {
+      console.log('refresh modelparameers', newModelParameters._id);
+      outcome.newModelParameters=newModelParameters;
+      return callback(null, newModelParameters);
+    });
+  };
+  var getNewLabSession=function(callback) {
+    _getNewLabSession(req, function(err, newLabSession) {
+      outcome.newLabSession=newLabSession;
+      return callback(null, newLabSession);
+    });
+  };
+
+  var asyncFinally = function(err, results) {
+    if(err) {return next(err);}
+
+    outcome.account.modelImageSetPath='/media/ModelImageSets'+'/'+outcome.imageset.folderName;
+
+    //Strip out unused images
+    var usedImages=[]; 
+    outcome.setpath.points.sort(function(a, b) {return a.frameNumber-b.frameNumber;});
+    var firstFrame=Number(outcome.setpath.points[0].frameNumber);
+    var lastFrame=Number(outcome.setpath.points[outcome.setpath.points.length-1].frameNumber);
+    var firstTime=Number(outcome.setpath.points[0].timestamp);
+    var lastTime=Number(outcome.setpath.points[outcome.setpath.points.length-1].timestamp);
+    outcome.imageset.images.forEach(function(item) {
+      if(Number(item.frameNumber)>=firstFrame && Number(item.frameNumber)<=lastFrame) {
+        usedImages.push(item);
+      }
+    });
+    outcome.imageset.images=usedImages;
+    //Strip out unused light data 
+    var usedLightData=[]; 
+    outcome.imageset.lightData.forEach(function(item) {
+      if(Number(item.timestamp)>=firstTime && Number(item.timestamp)<=lastTime) {
+        usedLightData.push(item);
+      }
+    });
+    outcome.imageset.lightData=usedLightData;
+    //Make Active Image the first one
+    outcome.imageset.activeImage=outcome.imageset.images[0];
+
+    outcome.newModelParameters.imageset.id=outcome.imageset._id;
+    outcome.newModelParameters.imageset.folderName=outcome.imageset.folderName;
+    outcome.newModelParameters.setpath.id=outcome.setpath._id;
+    outcome.newModelParameters.setpath.pathName=outcome.setpath.pathName;
+
+    outcome.newLabSession.imageset.id=outcome.imageset._id;
+    //Log ModelParameters
+    var timesObj={name:'server:'+_serverTab+'asyncFinally', time:new Date().getTime()};
+    outcome.newLabSession.times.push(timesObj);
+    outcome.imageset.displayName=outcome.imageset.displayName.split('GMT')[0];
+    res.render(_myResRender, {
+      data: {
+        user:escape(JSON.stringify(outcome.user)),
+        account:escape(JSON.stringify(outcome.account)),
+        imageset:escape(JSON.stringify(outcome.imageset)),
+        setpath:escape(JSON.stringify(outcome.setpath)),
+        modelParameters:escape(JSON.stringify(outcome.newModelParameters)),
+        labSession:escape(JSON.stringify(outcome.newLabSession)),
+      },
+    });
+  };
+
+  async.parallel([getAccountData, getUserData, getSetPathAndImageset, getNewModelParameters, getNewLabSession], asyncFinally);
+};
+exports.update=function(req, res, next) {
+  var outcome={}; 
+  var workflow=req.app.utility.workflow(req, res);
+  console.log('update req body id', req.body._id); 
+  var updateModelParameters=function(callback) {
+    req.app.db.models.ModelParameters.findOne({_id:req.body._id}, {}, function(err, doc) {
+      if(err) {
+        return callback(err, null);
+      } else {
+        doc.changesBeforeRun=doc.changesBeforeRun.concat(req.body.changesBeforeRun);
+        doc.coupling=req.body.coupling;
+        doc.couplingName=req.body.couplingName;
+        doc.roll=req.body.roll;
+        doc.rollName=req.body.rollName;
+        doc.surge=req.body.surge;
+        doc.surgeName=req.body.surgeName;
+        doc.save(function(err, newDoc) {
+          if(err) {
+            outcome.modelParameters=doc;
+            return callback(null, 'odky');
+          } else if(newDoc===null) {
+            outcome.modelParameters=doc;
+            return callback(null, 'odky');
+          } else {
+            outcome.modelParameters=newDoc;
+            return callback(null, 'odky');
+          }
+        });
+      }
+    });
+  };
+
+  var getNewLabSession=function(callback) {
+    _getNewLabSession(req, function(err, newLabSession) {
+      outcome.newLabSession=newLabSession;
+      return callback(null, newLabSession);
+    });
+  };
+  
+  var asyncFinally = function(err, results) {
+    if(err) {
+      console.log('update asyncFinally err: ', err);
+    } else { 
+      workflow.on('patchAccount', function() {
+        if(err) {
+          console.log('err', err);
+        }
+        workflow.outcome.modelParameters=outcome.modelParameters;
+        workflow.outcome.labSession=outcome.newLabSession;
+        return workflow.emit('response');
+      });
+      workflow.emit('patchAccount');
+    }
+  };
+  
+  async.parallel([updateModelParameters, getNewLabSession], asyncFinally);
+};
+exports.updateLabSession = function(req, res, next) {
+  console.log('upagelablsesion');
+  var workflow = req.app.utility.workflow(req, res);
+  //Save lab session
+  var saveLabSessionData=function() {
+    console.log('Saving Old', req.body._id);
+    req.body.times.push({name:'server:'+_serverTab+':updateLabSession:saveLabSessionData', time:new Date().getTime()});
+    req.app.db.models.LabSession.findByIdAndUpdate(req.body._id, req.body).exec(function(err, labSession) {
+      if(err) {console.log('server:'+_serverTab+':updateLabSession:saveLabSessionData err: ', err);}
+    });
+  };
+  saveLabSessionData();
+
+  //Return with new Lab Session
+  var getNewLabSession = function(callback) {
+    var newLabSession=req.app.db.models.LabSession();
+    newLabSession.req.sessionID=req.sessionID;
+    newLabSession.req.url=req.url;
+    newLabSession.req.remoteAddress=req._remoteAddress;
+    newLabSession.req.startTime=req._startTime;
+    
+    newLabSession.account.id=req.user.roles.account.id; 
+    newLabSession.user.id=req.user.id; 
+    newLabSession.user.name=req.user.username; 
+   
+    newLabSession.times.push({name:'server:'+_serverTab+':updateLabSession:getNewLabSession', time:new Date().getTime()});
+    newLabSession.clientSocketId='notset';
+    newLabSession.save(function(err, dat) {
+      console.log('Saving New', newLabSession._id);
+      callback(null, newLabSession);
+    }); 
+  };
+  getNewLabSession(function(err, newLabSession) {
+    workflow.outcome.labsession=newLabSession;
+    return workflow.emit('response');
+  });
+};
+exports.saveModelParameters = function(req, res, next) {
+  //Save Change
+  var lastChangeObj={time:new Date().getTime(), type:'server:saveModelParameters'};
+  req.body.changesBeforeRun.push(lastChangeObj);
+  
+  var outcome={}; 
+  var saveModelParameters=function(callback) {
+    var modelParametersSaved=req.app.db.models.ModelParameters();
+    //Kepp Old Parameters
+    Object.keys(req.body).forEach(function(item) {
+      if(item!=='_id') {
+        modelParametersSaved[item]=req.body[item];
+      }
+    });
+    modelParametersSaved.save(function(err, dat) {
+      if(err) {console.log('saveModelParameters modelParametersSaved err: ', err);
+      } else {ModelParameters
+        console.log('saveModelParameters modelParametersSaved: ', dat.id);
+        outcome.modelParametersSaved=modelParametersSaved;
+        callback(null, saveModelParameters);
+      }
+    });
+    
+  };
+  var getNewModelParameters=function(callback) {
+    var modelParametersNew=req.app.db.models.ModelParameters();
+    console.log('save new modelparameers', modelParametersNew._id);
+    if (modelParametersNew===null || modelParametersNew===undefined) {return callback('could not make new model parameters?', null);}
+    modelParametersNew.user.id=req.user.id;
+    modelParametersNew.user.name=req.user.username;
+    modelParametersNew.imageset.id='Not Set';
+    modelParametersNew.imageset.folderName='Not Set';
+    
+    //Save Change
+    var changeObj={time:new Date().getTime(), type:'server:saveModelParameters:getNewModelParameters'};
+    modelParametersNew.changesBeforeRun.push(changeObj);
+    
+    outcome.modelParametersNew=modelParametersNew;
+    callback(null, modelParametersNew);
+  };
+  var workflow=req.app.utility.workflow(req, res);
+  workflow.on('patchAccount', function() {
+    saveModelParameters(function(err, savedModelParameters) {
+      getNewModelParameters(function(err, modelParameters) {
+        console.log('save again? new modelparameers', modelParameters._id);
+        //Kepp Old Parameters
+        Object.keys(req.body).forEach(function(item) {
+          modelParameters[item]=req.body[item];
+        });
+        //modelParameters.modelCase=2;
+        if(err) {console.log('err', err);}
+        workflow.outcome.modelParameters=modelParameters;
+        return workflow.emit('response');
+      });
+    });
+  });
+  workflow.emit('patchAccount');
+};
+
+var _getNewLabSession = function(pReq, callback) {
+  var newLabSession=pReq.app.db.models.LabSession();
+
+  newLabSession.account.id=pReq.user.roles.account.id; 
+  newLabSession.user.id=pReq.user.id; 
+  newLabSession.user.name=pReq.user.username; 
+
+  //newLabSession.imageset.id=; 
+  
+  newLabSession.req.sessionID=pReq.sessionID;
+  newLabSession.req.url=pReq.url;
+  newLabSession.req.remoteAddress=pReq._remoteAddress;
+  newLabSession.req.startTime=pReq._startTime;
+  
+  newLabSession.serverTag=_serverTag;
+  newLabSession.serverTab=_serverTab;
+  //Log 
+  var timesObj={name:'server:'+_serverTab+'_getNewLabSession', time:new Date().getTime()};
+  newLabSession.times.push(timesObj);
+ 
+  newLabSession.clientSocketId='N/A';
+  
+  newLabSession.save(function(err, dat) {
+    if(err) {console.log('server:'+_serverTab+'_getNewLabSession Error: ', err);}
+    //if(dat) {console.log('server:'+_serverTab+'_getNewLabSession Dat: ', dat);}
+    callback(null, dat);
+  }); 
+};
+var _getNewModelParameters=function(pReq, callback) {
+  var newModelParameters=pReq.app.db.models.ModelParameters();
+  
+  newModelParameters.user.id=pReq.user.id;
+  newModelParameters.user.name=pReq.user.username;
+
+  //modelParametersNew.imageset.id=;
+  newModelParameters.imageset.folderName='Not Set';
+  
+  //modelParametersNew.setpath.id=;
+ 
+  newModelParameters.userStudyId='PreEpsTesting';
+  
+  newModelParameters.modelCase=3;
+  newModelParameters.modelDescription='Not';
+  
+  //modelParametersNew.displayName=;
+  
+  newModelParameters.length=38;
+  newModelParameters.diameter=8;
+  newModelParameters.x=310;
+  newModelParameters.y=228;
+  newModelParameters.zRot=-0.98;
+  newModelParameters.surge=60;
+  newModelParameters.roll=0;
+  newModelParameters.pitch=0;
+  newModelParameters.yaw=0;
+  newModelParameters.coupling=0;
+  //newModelParameters.std=;
+
+  
+  newModelParameters.surgeName=['Speed [micro-meter/sec]'];
+  newModelParameters.couplingName=['Name It!'];
+  newModelParameters.rollName=['Name It!'];
+  
+  //var changeObj={name:'server:'+_serverTab+'_getNewModelParameters', time:new Date().getTime()};
+  //newModelParameters.changesBeforeRun.push(changeObj);
+
+  newModelParameters.save(function(err, newDoc) {
+    return callback(null, newDoc);
+  });
+};
+

@@ -1,0 +1,112 @@
+/*Horizontal Major Bin*/
+.div-joystick-image-h {
+	margin:10px 0% 0% 0%;
+        padding:0% 0% 0% 0%;
+	background-color:#d3d3d3;
+	width:700px;
+        height:240px;
+        float:left;
+}
+/*Horizontal Side Image Bin*/
+.div-image-side-h {
+	margin:15px 15px 15px 15px;
+	padding:0% 0% 0% 0%;
+	background-color:#ffc0ee;
+	width:240px;
+        height:240px;
+        float:left;
+}
+/*Horizontal Joystick Bin*/
+.div-joystick-h {
+        margin:15px 15px 15px 15px;
+	padding:0% 0% 0% 0%;
+	background-color:#ffc0ee;
+	width:240px;
+        height:240px;
+        float:left;
+}
+
+/*Vertical Major Bin*/
+.div-joystick-image-v {
+	margin:0% 0% 0% 10px;
+        padding:0% 0% 0% 0%;
+	background-color:#d3d3d3;
+	width:240px;
+        height:540px;
+        float:left;
+}
+/*Vertical Side Image Bin*/
+.div-image-side-v {
+        margin:15px 15px 15px 15px;
+	padding:0% 0% 0% 0%;
+	background-color:#ffc0ee;
+	width:240px;
+        height:240px;
+        float:left;
+}
+/*Vertical Joystick Bin*/
+.div-joystick-v {
+        margin:15px 15px 15px 15px;
+	padding:0% 0% 0% 0%;
+	background-color:#ffc0ee;
+	width:240px;
+        height:240px;
+        float:left;
+}
+
+/*Small*/
+/*Horizontal Major Bin*/
+.div-joystick-image-h-sm {
+	margin:5px 0% 0% 0%;
+        padding:0% 0% 0% 0%;
+	background-color:#d3d3d3;
+	width:350px;
+        height:120px;
+        float:left;
+}
+/*Horizontal Side Image Bin*/
+.div-image-side-h-sm {
+	margin:0% 15px 0% 7px;
+	padding:0% 0% 0% 0%;
+	background-color:#ffc0ee;
+	width:150px;
+        height:120px;
+        float:left;
+}
+/*Horizontal Joystick Bin*/
+.div-joystick-h-sm {
+	margin:0% 0% 0% 0%;
+	padding:0% 0% 0% 0%;
+	background-color:#ffc0ee;
+	width:150px;
+        height:120px;
+        float:left;
+}
+
+/*Vertical Major Bin*/
+.div-joystick-image-v-sm {
+	margin:0% 0% 0% 5px;
+        padding:0% 0% 0% 0%;
+	background-color:#d3d3d3;
+	width:120px;
+        height:270px;
+        float:left;
+}
+/*Vertical Side Image Bin*/
+.div-image-side-v-sm {
+	margin:.7px 0% 15px 0%;
+	padding:0% 0% 0% 0%;
+	background-color:#ffc0ee;
+	width:240px;
+        height:240px;
+        float:left;
+}
+/*Vertical Joystick Bin*/
+.div-joystick-v-sm {
+	margin:0% 0% 0% 0%;
+	padding:0% 0% 0% 0%;
+	background-color:#ffc0ee;
+	width:120px;
+        height:120px;
+        float:left;
+}
