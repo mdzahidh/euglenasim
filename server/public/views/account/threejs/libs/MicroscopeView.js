@@ -268,7 +268,7 @@ MicroscopeView.prototype.addPointToStaticPath=function(point, frameNumber) {
   for(var i=0;i<this.staticPath.points.length;i++) {
     var checkPoint=this.staticPath.points[i];
 
-    console.log(checkPoint)
+    //console.log(checkPoint)
     if(checkPoint.frameNumber==frameNumber) {
       this.staticPath.points.splice(i, 1);
       this.remove(checkPoint);

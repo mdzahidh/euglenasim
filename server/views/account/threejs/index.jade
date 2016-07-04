@@ -1,6 +1,10 @@
 extends ../../../layouts/account
 
 block head
+  link(rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css")
+  script(src="http://code.jquery.com/jquery-1.10.2.js")
+  script(src="http://code.jquery.com/ui/1.11.4/jquery-ui.js")
+
   link(rel='stylesheet', href='/views/account/threejs/index.min.css?#{cacheBreaker}')
   script(src='/libs/Three.js/three.js')
   
