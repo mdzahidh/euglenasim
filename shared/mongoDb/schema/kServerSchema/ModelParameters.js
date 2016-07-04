@@ -36,7 +36,8 @@ exports = module.exports = function(app, mongoose) {
   
     surge:{type:Array, default:[10]},
     roll:{type:Array, default:[4]},
-    coupling:{type:Number, default:-3},
+    // coupling:{type:Number, default:-3},
+    coupling:{type:Array, default:[-3]},
     surgeName:{type:Array, default:[]},
     couplingName:{type:Array, default:[]},
     rollName:{type:Array, default:[]},

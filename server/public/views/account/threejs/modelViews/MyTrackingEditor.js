@@ -71,12 +71,15 @@ MyTrackingEditor=function(app) {
       var setObj={_id:me.model.id};
       Object.keys(me.model.attributes).forEach(function(name) {
         var textbox=me.$el.find('[name="'+ name +'"]')['0'];
+        console.log('Setting value of: ' + name);
         if(textbox) {
-          if(name==='std' || name==='coupling' || name==='x' || name==='y' || 
+          if(name==='std' || name==='x' || name==='y' ||
             name==='length' || name==='diameter' || name==='modelCase') {
             setObj[name]=textbox.value;
+            console.log('Value: ' + setObj[name]);
           } else {
             setObj[name]=[textbox.value];
+            console.log('Value: ' + setObj[name]);
           }
         }
       });
@@ -86,6 +89,7 @@ MyTrackingEditor=function(app) {
       console.log('coupling', setObj.couplingName[0], setObj.coupling);
       console.log('roll', setObj.rollName[0], setObj.roll[0]);
       console.log('saveParameters', Object.keys(setObj));
+      //console.log('saveParameters', Object.values(setObj));
       me.model.save(setObj);
     },
 
@@ -124,7 +128,7 @@ MyTrackingEditor=function(app) {
       //DEBUG
       //DEBUG
       //DEBUG
-      //slider=null;
+      slider=null;
       if(slider) {
         if(toggle) {
           $('#'+toggleName+'Slider').slider('disable');
@@ -175,7 +179,7 @@ MyTrackingEditor=function(app) {
         //DEBUG
         //DEBUG
         //DEBUG
-        //slider=null;
+        slider=null;
         var label=me.$el.find('[name="'+e.target.myId+'Label'+'"]')['0'];
         if(slider && label) {
           $("#"+name+"Slider").slider.value=Number(changeObj.newValue);
@@ -198,7 +202,7 @@ MyTrackingEditor=function(app) {
         var textbox=me.$el.find('[name="'+name+'"]')['0'];
         if(textbox) {
           var value=me.model.attributes[name];
-          if(typeof me.model.attributes[name]==='object') {
+          if((value !== "undefined") && (value !== null) && (value.constructor === Array)) {
             if(me.model.attributes[name].length>0) {
               value=me.model.attributes[name][0];
             } 
@@ -223,7 +227,7 @@ MyTrackingEditor=function(app) {
           //DEBUG
           //DEBUG
           //DEBUG
-          //slider=null;
+          slider=null;
           if(slider && label) {
             $("#"+name+"Slider").slider({
               value:value,
