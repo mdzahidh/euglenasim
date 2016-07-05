@@ -128,7 +128,7 @@ MyTrackingEditor=function(app) {
       //DEBUG
       //DEBUG
       //DEBUG
-      slider=null;
+      //slider=null;
       if(slider) {
         if(toggle) {
           $('#'+toggleName+'Slider').slider('disable');
@@ -179,7 +179,7 @@ MyTrackingEditor=function(app) {
         //DEBUG
         //DEBUG
         //DEBUG
-        slider=null;
+        //slider=null;
         var label=me.$el.find('[name="'+e.target.myId+'Label'+'"]')['0'];
         if(slider && label) {
           $("#"+name+"Slider").slider.value=Number(changeObj.newValue);
@@ -227,7 +227,7 @@ MyTrackingEditor=function(app) {
           //DEBUG
           //DEBUG
           //DEBUG
-          slider=null;
+          //slider=null;
           if(slider && label) {
             $("#"+name+"Slider").slider({
               value:value,

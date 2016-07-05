@@ -1,9 +1,10 @@
 extends ../../../layouts/account
 
 block head
-  link(rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css")
-  script(src="http://code.jquery.com/jquery-1.10.2.js")
-  script(src="http://code.jquery.com/ui/1.11.4/jquery-ui.js")
+  //link(rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css")
+  //script(src="http://code.jquery.com/jquery-1.10.2.js")
+  //script(src="http://code.jquery.com/ui/1.11.4/jquery-ui.js")
+  title Euglena Modeling
 
   link(rel='stylesheet', href='/views/account/threejs/index.min.css?#{cacheBreaker}')
   script(src='/libs/Three.js/three.js')
@@ -13,17 +14,18 @@ block head
   script(src='/libs/three/Mesh_Text.js')
   script(src='/libs/three/Mesh_Image.js')
   script(src='/libs/three/MyQuadLightsMesh.js')
-  
+  //
   script(src='/views/account/threejs/libs/Euglena.js')
-
+  //
   script(src='/views/account/threejs/libs/MicroscopeView.js')
   script(src="/views/account/threejs/modelViews/MyTrackingEditor.js")
   script(src="/views/account/threejs/modelViews/MyTrackingView.js")
-  title Euglena Modeling
 
 block feet
-  //script(src='/views/account/threejs/index.min.js?#{cacheBreaker}')
-  script(src='/views/account/threejs/index.js')
+  script(src='/views/account/threejs/index.min.js?#{cacheBreaker}')
+  //script(src='/views/account/threejs/index.js')
+  link(rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css")
+  script(src="http://code.jquery.com/ui/1.11.4/jquery-ui.js")
 
 block body
   div.main-header
@@ -46,7 +48,7 @@ block body
       
       div.row(style='margin:1% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%; height:50px;')
         button.btn.btn-primary.buttonA.btn-editParameter(style='margin:0% 0% 0% 1%; padding:0% 0% 0% 0%; width:48%; height:100%;', name='btnEditParameter', type='button') Run Model
-        button.btn.btn-primary.buttonA.btn-resetParameter(style='margin:0% 1% 0% 2%; padding:0% 0% 0% 0%; width:48%; height:100%;', name='btnResetParameter', type='button') Start Over
+        button.btn.btn-primary.buttonA.btn-resetParameter(style='margin:0% 0% 0% 0%; padding:0% 0% 0% 0%; width:48%; height:100%;', name='btnResetParameter', type='button') Start Over
       
       div.row(style='margin:0% 0% 0% 10%; padding:0% 0% 0% 0%; width:90%; height:20%;')
         div.col
