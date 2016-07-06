@@ -16,7 +16,7 @@ parts.forEach(function(part) {
       didFindServer=true;
       liveUserLabTime=60*1000;
       liveMuseumUserLabTime=25*60*1000;
-    } else if(part==='modelingdev_euglenalab') {
+    } else if(part==='master_euglenasim') {
       isDev=true;
       isDevTesting=false;
       didFindServer=true;
@@ -33,9 +33,9 @@ var exports=module.exports={
     getMongoUri:function() {
       var dbName='test';
       if(this.isDevTesting) dbName='test';
-      else if(this.isDev) dbName='kdrywall';
-      else if(this.isProduction) dbName='dev';
-      return 'mongodb://localhost:27017/'+'kdrywall';
+      else if(this.isDev) dbName='dev';
+      else if(this.isProduction) dbName='master';
+      return 'mongodb://localhost:27017/'+dbName;
     },
     getServerPort:function() {
       var port='5000';

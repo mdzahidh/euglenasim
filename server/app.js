@@ -30,6 +30,7 @@ app.serverBase='';
 parts.forEach(function(part) {app.serverBase+='/'+part;});
 
 //setup mongoose
+console.log('Connecting to database at: ' + config.mongodb.uri);
 app.db = mongoose.createConnection(config.mongodb.uri);
 app.db.on('error', console.error.bind(console, 'mongoose connection error: '));
   
