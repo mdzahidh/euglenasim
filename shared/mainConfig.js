@@ -10,13 +10,14 @@ var isProduction=true;
 var didFindServer=false;
 parts.forEach(function(part) {
   if(!didFindServer) {
-    if(part==='master_euglenalab') {
+    if(part==='master_euglenalab12') {
       isProduction=true;
       isDevTesting=false;
       didFindServer=true;
       liveUserLabTime=60*1000;
       liveMuseumUserLabTime=25*60*1000;
-    } else if(part==='master_euglenasim') {
+    } //else if(part==='master_euglenasim') {
+    else{
       isDev=true;
       isDevTesting=false;
       didFindServer=true;
@@ -59,7 +60,7 @@ var exports=module.exports={
     bpu_runExpLedsSet:'/bpu/runExp/#ledsSet',
     bpu_resetBpu:'/bpu/#resetBpu',
     bpuCont_submitExperimentRequest:'/bpuCont/#submitExperimentRequest',
-  }, 
+  },
   livejoylab_bpuSocketStrings:{
     bpu_runExpLedsSet:'/bpu/runExp/#ledsSet',
   },
@@ -80,7 +81,7 @@ var exports=module.exports={
     user_sendUserToLiveLab:'/#sendUserToLiveLab',
     user_kickFromLab:'/#kickFromLab',                           //General Purpose
   },
-  
+
   clearUserListOnStart:false,
   maxUsersInList:500,
   activeSocketsExpSubTimeout:60*5*1000,
@@ -90,19 +91,19 @@ var exports=module.exports={
   maxTextTotalSumbitTime:60*20*1000,
   liveMuseumUserLabTime:liveMuseumUserLabTime,
   liveUserLabTime:liveUserLabTime,
-  
+
   mainServerData:'/myData/mServer/',
 
   BpuAutoLightData:require('./autoUserData.json'),
   BpuTestLightData:require('./testLightUserData.json'),
- 
-  moveBpuDataFolders:{ 
+
+  moveBpuDataFolders:{
     bpuDbFolder:'/myData/bpu/readyMongo',
     bpuTarFolder:'/myData/bpu/tars',
     localBpuDbDump:'/home/mserver/git/euglenalab/datadump',
     localTarFolder:'/myData/mServer',
   },
- 
+
   LoggerLevels:{ALL:0, TRACE:1, DEBUG:2, INFO:3, WARN:4, ERROR:5, FATAL:6, OFF:7},
 
   bpuStatusTypes:{
@@ -167,7 +168,7 @@ var exports=module.exports={
       stimulusType: '4leds',
       stimulusDescription: '4 leds controls by arduino',
       allowedGroups: ['admin', 'default', 'scripter', 'nwg', 'golabz'],
-      isOn:false, 
+      isOn:false,
       isArduino:false,
       maxLightIntentisy:1, //percent of lightValues used on leds.js
       localAddr:{
@@ -180,7 +181,7 @@ var exports=module.exports={
         serverPort:20006,
         webcamPort:20005,
         allowedPorts:[20005, 20006, 20007, 20008, 20009],
-      }, 
+      },
       mainServerBpuData:'/myData/bpus',
     },
     {
@@ -193,7 +194,7 @@ var exports=module.exports={
       stimulusType: '4leds',
       stimulusDescription: '4 leds controls by arduino',
       allowedGroups: ['admin', 'default', 'scripter', 'nwg', 'golabz'],
-      isOn:false, 
+      isOn:false,
       isArduino:false,
       maxLightIntentisy:1, //percent of lightValues used on leds.js
       localAddr:{

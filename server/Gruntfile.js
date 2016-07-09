@@ -52,7 +52,7 @@ module.exports = function(grunt) {
     },
     concurrent: {
       dev: {
-        tasks: ['nodemon', 'watch'],
+        tasks: ['nodemon'],
         options: {
           logConcurrentOutput: true
         }
@@ -220,12 +220,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-watch');
+  //grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-newer');
 
-  grunt.registerTask('default', ['copy:vendor', 'newer:uglify', 'newer:less', 'concurrent']);
+  grunt.registerTask('default', ['copy:vendor', 'newer:uglify', 'newer:less','concurrent']);
+  //grunt.registerTask('default', ['copy:vendor', 'newer:uglify', 'newer:less', 'concurrent']);
   //grunt.registerTask('default', ['copy:vendor', 'newer:less', 'concurrent']);
   grunt.registerTask('build', ['copy:vendor', 'uglify', 'less']);
   grunt.registerTask('lint', ['jshint']);
