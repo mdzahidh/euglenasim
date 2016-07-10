@@ -30,7 +30,7 @@ block feet
 block body
   div.main-header
     div.col-xs-10.col-sm-10.col-md-8.col-lg-8(style='margin:0% 0% 0% 0%; padding:0px 0% 0px 0px; width:75%; height:100%; background-color:#e0efff; background-repeat:no-repeat; background-image:url("/media/scaleImage.png");')
-      h1#MainHeader(style='margin:1% 0% 0% 1%; padding:0px 0% 0px 0px;')
+      h1#MainHeader(style='margin:1% 0% 0% 1%; padding:0px 0% 0px 0px;') Explore Euglena Model
     div.col-xs-10.col-sm-10.col-md-8.col-lg-8#caseimage(style='margin:0% 0% 0% 0%; padding:10px 0% 0% 0%; width:25%; height:100%; background-color:#e0efff; background-repeat:no-repeat; background-image:url("/media/Euglena_Model_1.png");')
   div.row.main-row#MainRow
     div.col-xs-10.col-sm-10.col-md-8.col-lg-8.main-row-main-col
@@ -85,11 +85,11 @@ block body
       div.row(style='margin:5% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%;')
         div.col(style='margin:0% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%;')
           div.control-group(style='float:left; width:65%;')
-            input.form-control.cp-name(type='text', disabled='true', name='surgeName', value='10', style='text-align:left; padding:0% 0% 0% 5px;font-size:12px;float:left; background-color:#5ad3c9;')
+            input.form-control.cp-name(type='text', disabled='true', name='surgeName', value='Speed [um/sec]', style=style=' float:left; background-color:#e6e7a6;')
             //label.label.main(name='surgeName', value='10', style='text-align:left; padding:0% 0% 0% 5px;font-size:12px;float:left; background-color:#5ad3c9;')
           div.col
             div.control-group(style='float:left; width:35%;')
-              input.form-control.cp-name(type='number', name='surge', value='60', step='10', min='0', max='150', style=' float:left; background-color:#5ad3c9;')
+              input.form-control.cp-name(type='number', disabled='true',name='surge',value='60', step='10', min='0', max='150', style=' float:left; background-color:#5ad3c9;')
       div.row(style='margin:0% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%; background-color:#5ad3c9;')
         div.col(style='margin:0% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%;')
           div.control-group(style='float:left; width:100%;')
@@ -100,10 +100,10 @@ block body
       div.row(style='margin:5% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%;')
         div.col(style='margin:0% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%;')
           div.control-group(style='float:left; width:65%;')
-            input.form-control.cp-name(type='text', disabled='true', name='couplingName', value='-3', style=' float:left; background-color:#e6e7a6;')
+            input.form-control.cp-name(type='text', disabled='true', name='couplingName', value='Light Sensitivity', style=' float:left; background-color:#e6e7a6;')
           div.col
             div.control-group(style='float:left; width:35%;')
-              input.form-control.cp-name(type='number', name='coupling', value='-3', step='5', min='-50', max='50', style='float:left; background-color:#d1d35a;')
+              input.form-control.cp-name(type='number', disabled='true',name='coupling', value='-3', step='5', min='-50', max='50', style='float:left; background-color:#d1d35a;')
       div.row(style='margin:0% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%; background-color:#d1d35a;')
         div.col(style='margin:0% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%;')
           div.control-group(style='float:left; width:100%;')
@@ -114,10 +114,10 @@ block body
       div.row(style='margin:5% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%; ')
         div.col(style='margin:0% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%;')
           div.control-group(style='float:left; width:65%;')
-            input.form-control.cp-name(type='text', disabled='true', name='rollName', value='Roll', style='float:left; background-color:#e6a2d2;')
+            input.form-control.cp-name(type='text', disabled='true', name='rollName', value='Roll [rotation/sec]', style='float:left; background-color:#e6a2d2;')
           div.col
             div.control-group(style='float:left; width:35%;')
-              input.form-control.cp-name(type='number', name='roll', value='1', step='1', min='0', max='8', style='float:left; background-color:#d35aaf;')
+              input.form-control.cp-name(type='number', disabled='true',name='roll', value='1', step='1', min='0', max='8', style='float:left; background-color:#d35aaf;')
       div.row(style='margin:0% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%; background-color:#d35aaf;')
         div.col(style='margin:0% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%;')
           div.control-group(style='float:left; width:100%;')

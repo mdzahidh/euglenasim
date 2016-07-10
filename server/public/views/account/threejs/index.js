@@ -22,7 +22,7 @@
     idAttribute:'_id',
     url:'/account/threejs/update/',
     parse:function(response) {
-      if(response) { 
+      if(response) {
         if(response.modelParameters) {
           app.mainView.modelParameters.set(response.modelParameters);
           delete response.modelParameters;
@@ -56,7 +56,7 @@
           text+='3: The rotating single eye';
           myUrl="url('/media/Euglena_Model_3.png')";
         }
-        document.getElementById('MainHeader').innerHTML=text;
+        //document.getElementById('MainHeader').innerHTML=text;
         document.getElementById('caseimage').style.backgroundColor=modelCaseColor;
         document.getElementById('divJoystick').style.backgroundColor=modelCaseColor;
         document.getElementById('caseimage').style.backgroundImage=myUrl;
@@ -65,7 +65,7 @@
     //Editor
     updateFromEditorCallback:function(modelParameters, modelCaseColor, didResetParametersClick, didEditParametersClickOn, didEditParametersClickOff, didVideoJustEnded) {
       this.updateCaseInfo(Number(modelParameters.attributes.modelCase), modelCaseColor);
-      if(app.trackingView) { 
+      if(app.trackingView) {
         if(!didVideoJustEnded) {
           app.trackingView.setEuglenaParameters(modelParameters, modelCaseColor);
         }
@@ -84,7 +84,7 @@
     },
     initialize: function() {
       app.mainView=this;
-      //Data 
+      //Data
       this.account=new app.Account(JSON.parse(unescape($('#data-account').html())));
       this.user=new app.User(JSON.parse(unescape($('#data-user').html())));
       this.imageset=new app.ImageSet(JSON.parse(unescape($('#data-imageset').html())));
@@ -92,19 +92,20 @@
       this.modelParameters=new app.ModelParameters(JSON.parse( unescape($('#data-modelParameters').html())));
 
 
-      if(this.modelParameters.get('surgeName')[0]===null || this.modelParameters.get('surgeName')[0]===undefined) {
-        this.modelParameters.get('surgeName').push('Surge');
-      }
-      if(this.modelParameters.get('couplingName')[0]===null || this.modelParameters.get('couplingName')[0]===undefined) {
-        this.modelParameters.get('couplingName').push('Coupling');
-      }
-      if(this.modelParameters.get('rollName')[0]===null || this.modelParameters.get('rollName')[0]===undefined) {
-        this.modelParameters.get('rollName').push('Roll');
-      }
+      // if(this.modelParameters.get('surgeName')[0]===null || this.modelParameters.get('surgeName')[0]===undefined) {
+      //   this.modelParameters.get('surgeName').push('Surge');
+      // }
+      // if(this.modelParameters.get('couplingName')[0]===null || this.modelParameters.get('couplingName')[0]===undefined) {
+      //   this.modelParameters.get('couplingName').push('Coupling');
+      // }
+      // if(this.modelParameters.get('rollName')[0]===null || this.modelParameters.get('rollName')[0]===undefined) {
+      //   this.modelParameters.get('rollName').push('Roll');
+      // }
 
-      this.modelParameters.get('surgeName')[0] = 'Surge';
-      this.modelParameters.get('couplingName')[0] = 'Coupling';
-      this.modelParameters.get('rollName')[0] = 'Roll';
+      // Zahid - Hack , forcing the system the variable names
+      // this.modelParameters.get('surgeName')[0] = 'Surge';
+      // this.modelParameters.get('couplingName')[0] = 'Coupling';
+      // this.modelParameters.get('rollName')[0] = 'Roll';
 
       console.log('index.js initialize', this.modelParameters.id, this.modelParameters.attributes);
       console.log('index.js initialize', this.modelParameters.id);
@@ -122,14 +123,14 @@
       app.trackingView=new MyTrackingView(app, document.getElementById('trackingview'), function() {
         app.trackingView.addMouseMoveEvent();
         app.trackingView.toggleClickEvent(true);
-        
+
         window.addEventListener('resize', function(evt) {
           app.mainView.isClientActive=true;
           app.mainView.lastClientActivityTime=new Date().getTime();
           app.mainView.lastSaveTime=new Date().getTime();
           var e=evt.target;
           var obj={
-            name:'client:'+app.mainView.serverTab+':resize', time:new Date().getTime(), 
+            name:'client:'+app.mainView.serverTab+':resize', time:new Date().getTime(),
             innerHeight:e.innerHeight, outerHeight: e.outerHeight,
             innerWidth: e.innerWidth, outerWidth: e.outerWidth,
             pageXOffset: e.pageXOffset, pageYOffset: e.pageYOffset,
@@ -146,17 +147,17 @@
               screenX:window.screenX, screenY:window.screenY,
             },
           }
-        }); 
+        });
         window.addEventListener('wheel', function(e) {
           app.mainView.isClientActive=true;
           app.mainView.lastClientActivityTime=new Date().getTime();
           app.mainView.lastSaveTime=new Date().getTime();
           var obj={
-            name:'client:'+app.mainView.serverTab+':document:wheel', time:new Date().getTime(), 
-            layerX:e.layerX, layerY:e.layerY, 
-            clientX:e.clientX, clientY:e.clientY, 
-            pageX:e.pageX, pageY:e.pageY, 
-            screenX:e.screenX, screenY:e.screenY, 
+            name:'client:'+app.mainView.serverTab+':document:wheel', time:new Date().getTime(),
+            layerX:e.layerX, layerY:e.layerY,
+            clientX:e.clientX, clientY:e.clientY,
+            pageX:e.pageX, pageY:e.pageY,
+            screenX:e.screenX, screenY:e.screenY,
             ctrlKey:e.ctrlKey, shiftKey:e.shiftKey,
             deltaMode:e.deltaMode,
             deltaX:e.deltaX,
@@ -169,9 +170,9 @@
           app.mainView.lastClientActivityTime=new Date().getTime();
           app.mainView.lastSaveTime=new Date().getTime();
           var obj={
-            name:'client:'+app.mainView.serverTab+':document:mousemove', time:new Date().getTime(), 
-            layerX:e.layerX, layerY:e.layerY, 
-            clientX:e.clientX, clientY:e.clientY, 
+            name:'client:'+app.mainView.serverTab+':document:mousemove', time:new Date().getTime(),
+            layerX:e.layerX, layerY:e.layerY,
+            clientX:e.clientX, clientY:e.clientY,
             type:'notset',
           };
         }, true);
@@ -179,9 +180,9 @@
           app.mainView.isClientActive=true;
           app.mainView.lastClientActivityTime=new Date().getTime();
           var obj={
-            name:'client:'+app.mainView.serverTab+':document:mouseup', time:new Date().getTime(), 
-            layerX:e.layerX, layerY:e.layerY, 
-            clientX:e.clientX, clientY:e.clientY, 
+            name:'client:'+app.mainView.serverTab+':document:mouseup', time:new Date().getTime(),
+            layerX:e.layerX, layerY:e.layerY,
+            clientX:e.clientX, clientY:e.clientY,
             type:'notset',
           };
         }, true);
@@ -191,9 +192,9 @@
           app.mainView.lastClientActivityTime=new Date().getTime();
           app.mainView.lastSaveTime=new Date().getTime();
           var obj={
-            name:'client:'+app.mainView.serverTab+':document:mouseout', time:new Date().getTime(), 
-            layerX:e.layerX, layerY:e.layerY, 
-            clientX:e.clientX, clientY:e.clientY, 
+            name:'client:'+app.mainView.serverTab+':document:mouseout', time:new Date().getTime(),
+            layerX:e.layerX, layerY:e.layerY,
+            clientX:e.clientX, clientY:e.clientY,
             type:'notset',
           };
         }, true);
@@ -202,9 +203,9 @@
           app.mainView.lastClientActivityTime=new Date().getTime();
           app.mainView.lastSaveTime=new Date().getTime();
           var obj={
-            name:'client:'+app.mainView.serverTab+':document:mousedown', time:new Date().getTime(), 
-            layerX:e.layerX, layerY:e.layerY, 
-            clientX:e.clientX, clientY:e.clientY, 
+            name:'client:'+app.mainView.serverTab+':document:mousedown', time:new Date().getTime(),
+            layerX:e.layerX, layerY:e.layerY,
+            clientX:e.clientX, clientY:e.clientY,
             type:'notset',
           };
         }, true);
@@ -228,7 +229,7 @@
         app.trackingView.animate(dt);
         requestAnimationFrame(animate);
       };
-      animate(); 
+      animate();
     },
   });
 }());

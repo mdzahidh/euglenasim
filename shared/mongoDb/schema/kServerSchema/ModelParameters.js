@@ -3,7 +3,7 @@ exports = module.exports = function(app, mongoose) {
   var theSchema = new mongoose.Schema({
     creationTime:{type:Number, default:new Date().getTime()},
     saveType:{type: String, enum:['default', 'renderRefresh', 'runModelClick', 'startOverClick'], default:'default'},
- 
+
     user:{
       id:{type:mongoose.Schema.Types.ObjectId, ref:'User'},
       name:{type:String, default:''},
@@ -17,14 +17,14 @@ exports = module.exports = function(app, mongoose) {
       id:{type:mongoose.Schema.Types.ObjectId, ref:'SetPath'},
       pathName:{type:String, default:'0:0'},
     },
-      
+
     userStudyId:{type:String, default:'Default'},
-    
+
     modelCase:{type:Number, default:3},
     modelDescription:{type:String, default:'Default'},
-      
+
     displayName:{type:String, default:'Default'},
-   
+
     length:{type:Number, default:38},
     diameter:{type:Number, default:8},
     x:{type:Number, default:330},
@@ -33,11 +33,16 @@ exports = module.exports = function(app, mongoose) {
     pitch:{type:Array, default:[0]},
     yaw:{type:Array, default:[0]},
     std:{type:Number, default:-1},
-  
-    surge:{type:Array, default:[10]},
-    roll:{type:Array, default:[4]},
+
+    // surge:{type:Array, default:[10]},
+    // roll:{type:Array, default:[4]},
     // coupling:{type:Number, default:-3},
-    coupling:{type:Array, default:[-3]},
+
+    surge:{type:Number, default:[60]},
+    roll:{type:Number, default:[4]},
+    coupling:{type:Number, default:-3},
+
+    //coupling:{type:Array, default:[-3]},
     surgeName:{type:Array, default:[]},
     couplingName:{type:Array, default:[]},
     rollName:{type:Array, default:[]},

@@ -18,7 +18,7 @@ MyTrackingEditor=function(app) {
       app.mainView.lastClientActivityTime=new Date().getTime();
       app.mainView.lastSaveTime=new Date().getTime();
       var obj={
-        name:'EditorView:'+app.mainView.serverTab+':resetParametersClick', time:new Date().getTime(), 
+        name:'EditorView:'+app.mainView.serverTab+':resetParametersClick', time:new Date().getTime(),
         didResetParametersClick:this.didResetParametersClick,
         didEditParametersClickOn:this.didEditParametersClickOn,
         didEditParametersClickOff:this.didEditParametersClickOff,
@@ -37,7 +37,7 @@ MyTrackingEditor=function(app) {
       app.mainView.lastClientActivityTime=new Date().getTime();
       app.mainView.lastSaveTime=new Date().getTime();
       var obj={
-        name:'EditorView:'+app.mainView.serverTab+':editParametersClick', time:new Date().getTime(), 
+        name:'EditorView:'+app.mainView.serverTab+':editParametersClick', time:new Date().getTime(),
         didResetParametersClick:this.didResetParametersClick,
         didEditParametersClickOn:this.didEditParametersClickOn,
         didEditParametersClickOff:this.didEditParametersClickOff,
@@ -45,7 +45,7 @@ MyTrackingEditor=function(app) {
       };
 
       this.didVideoJustEnded=false;
-      
+
       this.disableEditor(true);
       if(!this.didEditParametersClickOn) {
         this.didEditParametersClickOn=true;
@@ -64,7 +64,8 @@ MyTrackingEditor=function(app) {
       this.model.attributes.std=runData.standardDev;
       this.didEditParametersClickOn=false;
       this.didEditParametersClickOff=false;
-      this.saveParameters();
+      //this.saveParameters();
+      //this.resetParametersClick();
     },
     saveParameters: function() {
       var me=this;
@@ -78,7 +79,7 @@ MyTrackingEditor=function(app) {
             setObj[name]=textbox.value;
             console.log('Value: ' + setObj[name]);
           } else {
-            setObj[name]=[textbox.value];
+            setObj[name]=textbox.value;
             console.log('Value: ' + setObj[name]);
           }
         }
@@ -102,7 +103,7 @@ MyTrackingEditor=function(app) {
         //DEBUG
         //DEBUG
         //DEBUG
-        slider=null; 
+        //slider=null;
         if(slider) {
           if(toggle) {
             $('#'+name+'Slider').slider('disable');
@@ -117,7 +118,7 @@ MyTrackingEditor=function(app) {
     },
     toggleSliderForModelCase:function(modelCase) {
       var me=this;
-      toggle=true; 
+      toggle=true;
       if(modelCase===3) {toggle=false;}
       var toggleName='roll';
       var textbox=me.$el.find('[name="'+ toggleName +'"]')['0'];
@@ -153,7 +154,7 @@ MyTrackingEditor=function(app) {
       this.$el.html(this.template(this.model.attributes));
       var name=null;
       var textbox=null;
-      var me=this; 
+      var me=this;
       function handleChange(e, sliderValue) {
         var changeObj={};
         if(sliderValue!=null) {
@@ -163,10 +164,10 @@ MyTrackingEditor=function(app) {
             textbox.value=sliderValue;
           }
         }
-        //Update Model 
+        //Update Model
         me.model.attributes[e.target.myId]=changeObj.newValue;
-        if(changeObj.name==='modelCase') { 
-          var color='#00ff00'; 
+        if(changeObj.name==='modelCase') {
+          var color='#00ff00';
           var modelCase=Number(me.model.attributes.modelCase);
           if(modelCase===1) {color='#5bc0de';
           } else if(modelCase===2) {color='#5cb85c';
@@ -186,41 +187,55 @@ MyTrackingEditor=function(app) {
           var preText=label.textContent.split(':')[0];
           //label.textContent=preText+': '+changeObj.newValue;
         };
-        if(changeObj.oldValue+''!==changeObj.newValue+'') {
-          app.mainView.updateFromEditorCallback(
-              me.model, 
-              me.el.style.backgroundColor,
-              me.didResetParametersClick,
-              me.didEditParametersClickOn,
-              me.didEditParametersClickOff,
-              me.didVideoJustEnded
-          );
-        }
-      }; 
+
+        // Zahid Turnign this off for now.
+        // if(changeObj.oldValue+''!==changeObj.newValue+'') {
+        //   app.mainView.updateFromEditorCallback(
+        //       me.model,
+        //       me.el.style.backgroundColor,
+        //       me.didResetParametersClick,
+        //       me.didEditParametersClickOn,
+        //       me.didEditParametersClickOff,
+        //       me.didVideoJustEnded
+        //   );
+        // }
+      };
 
       Object.keys(me.model.attributes).forEach(function(name) {
         var textbox=me.$el.find('[name="'+name+'"]')['0'];
         if(textbox) {
-          var value=me.model.attributes[name];
+          var value;
+          if(name==='couplingName'){
+            value = 'Light Sensitivity';
+          }
+          else if(name==='rollName'){
+            value = 'Roll [rotation/sec]';
+          }
+          else if(name === 'surgeName'){
+            value = 'Speed [um/sec]'
+          }
+          else{
+            value = me.model.attributes[name];
+          }
           if((value !== "undefined") && (value !== null) && (value.constructor === Array)) {
             if(me.model.attributes[name].length>0) {
               value=me.model.attributes[name][0];
-            } 
+            }
           }
-          
+
           textbox.myId=name;
           textbox.value=value;
           textbox.onchange=handleChange;
-          //start 20160629 - casey - fix inputs 
-          textbox.focusout=function() {
-            console.log(textbox);
-            //Clamp and make integer
-            var newValue = Math.floor(Math.min(Number(textbox.value), Number(textbox.max)));
-            newValue = Math.floor(Math.max(Number(textbox.min), newValue));
-            textbox.value=newValue;
-          };
-          //end 20160629 - casey - fix inputs 
-          
+          // //start 20160629 - casey - fix inputs
+          // textbox.focusout=function() {
+          //   console.log(textbox);
+          //   //Clamp and make integer
+          //   var newValue = Math.floor(Math.min(Number(textbox.value), Number(textbox.max)));
+          //   newValue = Math.floor(Math.max(Number(textbox.min), newValue));
+          //   textbox.value=newValue;
+          // };
+          // //end 20160629 - casey - fix inputs
+
           //Check Slider/Label
           var slider=$('#'+name+'Slider')['0'];
           var label=me.$el.find('[name="'+name+'Label'+'"]')['0'];
@@ -248,20 +263,20 @@ MyTrackingEditor=function(app) {
           }
         };
       });
-     
-      //Check Run  
+
+      //Check Run
       if(me.didEditParametersClickOn) {me.disableEditor(true);}
       else {me.disableEditor(false);}
 
       //Check For Model Case Update
       var modelCase=me.model.attributes.modelCase;
-      var color='#00ff00'; 
+      var color='#00ff00';
       if(modelCase==1) {color='#5bc0de';
       } else if(modelCase==2) {color='#5cb85c';
       } else if(modelCase==3) {color='#f4877d';}
       me.el.style.backgroundColor=color;
       app.mainView.updateFromEditorCallback(
-          me.model, 
+          me.model,
           me.el.style.backgroundColor,
           me.didResetParametersClick,
           me.didEditParametersClickOn,
@@ -270,6 +285,6 @@ MyTrackingEditor=function(app) {
       );
     },
   });
-  return new app.EditorView(); 
+  return new app.EditorView();
 }
 MyTrackingEditor.prototype=Object.create(Object.prototype);

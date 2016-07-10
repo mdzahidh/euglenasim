@@ -1,14 +1,14 @@
-MyTrackingView=function(app, threeDiv, callback) 
+MyTrackingView=function(app, threeDiv, callback)
 {
   var imageSetsPath=app.mainView.account.attributes.modelImageSetPath;
   var imageset=app.mainView.imageset;
-  
+
   //THREE//Properties
   this.backgroundImage=null;
   this.threeBackgroundColor=0xffffff;
   this.container=threeDiv;
   this.isOrthographic=true;
- 
+
   //THREE//Renderer
   this.renderer=new THREE.WebGLRenderer({alpha:true, antialias:true});
   this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
@@ -24,7 +24,7 @@ MyTrackingView=function(app, threeDiv, callback)
   var border=0;
   if(this.isOrthographic) {
     this.camera=new THREE.OrthographicCamera(
-        -1*this.container.clientWidth*0.500, this.container.clientWidth*0.500, 
+        -1*this.container.clientWidth*0.500, this.container.clientWidth*0.500,
         this.container.clientHeight*0.500, -1*this.container.clientHeight*0.500, near, far);
   } else {
     var ratio=gridWidth/gridHeight;
@@ -34,10 +34,10 @@ MyTrackingView=function(app, threeDiv, callback)
   this.camera.position.x=0;
   this.camera.position.y=-8;
   this.camera.position.z=1650;
-  
+
   //View Touch Plane
   this.clickMesh=new THREE.Mesh(
-    new THREE.PlaneGeometry((this.camera.right - this.camera.left), (this.camera.top - this.camera.bottom)), 
+    new THREE.PlaneGeometry((this.camera.right - this.camera.left), (this.camera.top - this.camera.bottom)),
     new THREE.MeshBasicMaterial({color:this.threeBackgroundColor})
   );
   this.clickMesh.name='clickMesh';
@@ -57,7 +57,7 @@ MyTrackingView=function(app, threeDiv, callback)
     size={x:app.editorView.model.get('length'), y:app.editorView.model.get('diameter'), z:app.editorView.model.get('diameter')};
     position={x:app.editorView.model.get('x'), y:app.editorView.model.get('y'), z:10};
     rotation={x:0, y:0, z:app.editorView.model.get('zRot')};
-    dynamics={surge:app.editorView.model.get('surge')[0], roll:app.editorView.model.get('roll')[0], pitch:app.editorView.model.get('pitch')[0], yaw:app.editorView.model.get('pitch')[0]};
+    dynamics={surge:app.editorView.model.get('surge'), roll:app.editorView.model.get('roll'), pitch:app.editorView.model.get('pitch')[0], yaw:app.editorView.model.get('pitch')[0]};
   }
   this.euglena=new Euglena(size, position, rotation, dynamics, this.inertialAxes);
   this.scene.add(this.euglena);
@@ -75,7 +75,7 @@ MyTrackingView=function(app, threeDiv, callback)
   this.eugUpdateCnt=0;
   this.eugUpdateInt=50;
   setTimeout(function() {callback();}, 200);
-  return this; 
+  return this;
 };
 MyTrackingView.prototype=Object.create(Object.prototype);
 MyTrackingView.prototype.setEuglenaParameters=function() {
@@ -88,14 +88,14 @@ MyTrackingView.prototype.setEuglenaParameters=function() {
     size={x:app.editorView.model.get('length'), y:app.editorView.model.get('diameter'), z:app.editorView.model.get('diameter')};
     position={x:app.editorView.model.get('x'), y:app.editorView.model.get('y'), z:10};
     rotation={x:0, y:0, z:app.editorView.model.get('zRot')};
-    dynamics={surge:app.editorView.model.get('surge')[0], roll:app.editorView.model.get('roll')[0], 
+    dynamics={surge:app.editorView.model.get('surge'), roll:app.editorView.model.get('roll'),
       pitch:app.editorView.model.get('pitch')[0], yaw:app.editorView.model.get('yaw')[0],
       coupling:app.editorView.model.get('coupling')
     };
     modelCase=app.editorView.model.get('modelCase');
   }
 
-  
+
   this.euglena.setSize(size.x, size.y, size.z);
   this.euglena.setPosition(position.x, position.y, 100);
   this.euglena.setRotation(0, 0, rotation.z);
@@ -104,18 +104,18 @@ MyTrackingView.prototype.setEuglenaParameters=function() {
 MyTrackingView.prototype.resetData=function() {
   var imageSetsPath=this.imageSetsPath;
   var imageset=this.imageset;
-  var title=document.getElementById('MainHeader').innerHTML;
+  //var title=document.getElementById('MainHeader').innerHTML;
   title='Images from '+imageset.attributes.displayName;
-  document.getElementById('MainHeader').innerHTML=title;
+  // document.getElementById('MainHeader').innerHTML=title;
   var frameNumber=imageset.attributes.activeImage.frameNumber;
   var micViewProps={
-    name:'microscopeView', 
-    size:{width:640, height:480}, 
+    name:'microscopeView',
+    size:{width:640, height:480},
     background:{color:0xd3d3d3, opacity:1.0},
-    image:{hasImage:true, 
-      basePath:imageSetsPath, 
-      activeImage:imageset.attributes.activeImage, 
-      images:imageset.attributes.images, 
+    image:{hasImage:true,
+      basePath:imageSetsPath,
+      activeImage:imageset.attributes.activeImage,
+      images:imageset.attributes.images,
       lightData:imageset.attributes.lightData},
     light:{hasLight:true, lightSize:30, allOn:false},
     grid:{hasGrid:true, boxSize:14, isVisible:true},
@@ -125,13 +125,13 @@ MyTrackingView.prototype.resetData=function() {
     this.currentImageFrame=frameNumber;
   } else {
     this.micView=new MicroscopeView(micViewProps);
-    this.micView.position.y=this.container.offsetTop; 
+    this.micView.position.y=this.container.offsetTop;
     this.scene.add(this.micView);
     this.currentImageFrame=frameNumber;
     this.addStaticPath(app.mainView.setpath.attributes.pathName, app.mainView.setpath.attributes.points);
   }
   this.setEuglenaParameters();
-  this.setImageFrame(frameNumber, 'view resetData'); 
+  this.setImageFrame(frameNumber, 'view resetData');
   this.hasUpdate=false;
   this.isUpdateControlClick=false;
   this.controlClick='';
@@ -148,10 +148,10 @@ MyTrackingView.prototype.resetData=function() {
   this.createNewSetPath('run');
 
   var obj={
-    name:'MyTrackingView:'+app.mainView.serverTab+':resetData', time:new Date().getTime(), 
-    imageSetsPath:imageSetsPath, 
-    imagesetId:imageset._id, 
-    currentImageFrame:this.currentImageFrame, 
+    name:'MyTrackingView:'+app.mainView.serverTab+':resetData', time:new Date().getTime(),
+    imageSetsPath:imageSetsPath,
+    imagesetId:imageset._id,
+    currentImageFrame:this.currentImageFrame,
   }
 };
 //Update
@@ -162,7 +162,7 @@ MyTrackingView.prototype.animate=function(dt) {
     this.initialPlay=this.micView.updateForPlaying(dt, this.doStopPlay);
     if(!this.initialPlay) {this.resetData();}
   } else if(this.startPlay) {
-    //Update mic images and lights 
+    //Update mic images and lights
     var retObj=this.micView.updateForPlaying(dt, this.doStopPlay);
     this.startPlay=retObj.isStillPlaying;
     //Move Euglena with light
@@ -172,7 +172,7 @@ MyTrackingView.prototype.animate=function(dt) {
     if(this.eugUpdateCnt>=this.eugUpdateInt) {
       this.eugUpdateCnt=0;
       runData=this.euglena.update(
-        this.micView.lightValues.left, 
+        this.micView.lightValues.left,
         this.micView.lightValues.right,
         this.micView.lightValues.top,
         this.micView.lightValues.bottom
@@ -180,20 +180,20 @@ MyTrackingView.prototype.animate=function(dt) {
     }
     runData.lights=this.micView.lightValues;
     var vector = new THREE.Vector3();
-    vector.setFromMatrixPosition(this.euglena.matrixWorld); 
+    vector.setFromMatrixPosition(this.euglena.matrixWorld);
     runData.eugPosition=vector;
     this.runData.push(runData);
     if(retObj.didChangeImage) {
       this.addPointToPath({x:vector.x, y:vector.y}, retObj.playImageFrame);
     }
-    //Add euglena point 
+    //Add euglena point
     if(!this.startPlay) {
       app.mainView.updateFromViewCallback(this.runData);
     }
   }
   //Update Three
   //Camera-Keep a certain distance above euglena.
-  if(!this.isOrthographic) {this.camera.aspect=width/height;}		
+  if(!this.isOrthographic) {this.camera.aspect=width/height;}
   this.camera.updateProjectionMatrix();
   //Renderer
   this.renderer.setViewport(0, 0, width, height);
@@ -328,7 +328,7 @@ MyTrackingView.prototype.toggleDownEvent=function(toggleOn) {
           }
         } else {
           self.controls.buttons.forEach(function(item) {
-            var obj=self.controls[item]; 
+            var obj=self.controls[item];
             if(obj.button.imageMesh.visible) {
               var threePoint=self.threePointForTouchEvent({x:e.layerX, y:e.layerY-self.container.offsetTop}, obj.button.imageMesh);
               if(threePoint!==null) {
@@ -366,7 +366,7 @@ MyTrackingView.prototype.toggleUpEvent=function(toggleOn) {
           }
         } else {
           self.controls.buttons.forEach(function(item) {
-            var obj=self.controls[item]; 
+            var obj=self.controls[item];
             if(obj.button.buttonState===obj.button.buttonStates.down) {
               var threePoint=self.threePointForTouchEvent({x:e.layerX, y:e.layerY-self.container.offsetTop}, obj.button.imageMesh);
               if(threePoint!==null) {
@@ -395,7 +395,7 @@ MyTrackingView.prototype.toggleOutEvent=function(toggleOn) {
       self.isClickHoldingRuler=false;
       self.touchHelper.mouse2D=null;
       self.controls.buttons.forEach(function(item) {
-        var obj=self.controls[item]; 
+        var obj=self.controls[item];
         if(obj.button && obj.button.imageMesh.visible) {
           obj.button.resizeForUp();
         }
