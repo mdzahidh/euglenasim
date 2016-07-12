@@ -33,6 +33,7 @@ block feet
       z-index:10;
       top:0;
       left:50%;
+      font-size:14pt;
     }
 
     #rightLabel {
@@ -40,6 +41,7 @@ block feet
       z-index:10;
       top:280px;
       right:1%;
+      font-size:14pt;
     }
 
     #bottomLabel {
@@ -47,6 +49,7 @@ block feet
       z-index:10;
       top:540px;
       left:50%;
+      font-size:14pt;
     }
 
     #leftLabel {
@@ -54,13 +57,14 @@ block feet
       z-index:10;
       top:280px;
       left:1%;
+      font-size:14pt;
     }
 
 block body
   div.main-header
-    div.col-xs-10.col-sm-10.col-md-8.col-lg-8(style='margin:0% 0% 0% 0%; padding:0px 0% 0px 0px; width:75%; height:100%; background-color:#e0efff; background-repeat:no-repeat; background-image:url("/media/scaleImage.png");')
+    div.col-xs-12.col-sm-12.col-md-12.col-lg-12(style='margin:0% 0% 0% 0%; padding:0px 0% 0px 0px; width:100%; height:100%; background-color:#e0efff; background-repeat:no-repeat; background-image:url("/media/scaleImage.png");')
       h1#MainHeader(style='margin:1% 0% 0% 1%; padding:0px 0% 0px 0px;') Explore Euglena Model
-    div.col-xs-10.col-sm-10.col-md-8.col-lg-8#caseimage(style='margin:0% 0% 0% 0%; padding:10px 0% 0% 0%; width:25%; height:100%; background-color:#e0efff; background-repeat:no-repeat; background-image:url("/media/Euglena_Model_1.png");')
+    //- div.col-xs-10.col-sm-10.col-md-8.col-lg-8#caseimage(style='margin:0% 0% 0% 0%; padding:10px 0% 0% 0%; width:25%; height:100%; background-color:#e0efff; background-repeat:no-repeat; background-image:url("/media/Euglena_Model_1.png");')
   div.row.main-row#MainRow
     div.col-xs-10.col-sm-10.col-md-8.col-lg-8.main-row-main-col
       div.row#trackingview.main-row-main-col-subrow-view
@@ -77,7 +81,7 @@ block body
 
   script(type='text/template', id='tmpl-trackingeditor')
     fieldSet
-      div.row#divJoystick(style='margin:0% 0% 16% 0%; padding:0% 0% 0% 0%; height:240px; width:100%; background-color:#f4877d;')
+      div.row#divJoystick(style='margin:10% 0% 16% 0%; padding:0% 0% 0% 0%; height:240px; width:100%; background-color:#f4877d; background-image:url("/media/legend.png");')
 
       div.row(style='margin:1% 0% 0% 0%; padding:0% 0% 0% 0%; width:100%; height:50px;')
         button.btn.btn-primary.buttonA.btn-editParameter(style='margin:0% 0% 0% 1%; padding:0% 0% 0% 0%; width:48%; height:100%;', name='btnEditParameter', type='button') Run Model

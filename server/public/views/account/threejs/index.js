@@ -57,9 +57,9 @@
           myUrl="url('/media/Euglena_Model_3.png')";
         }
         //document.getElementById('MainHeader').innerHTML=text;
-        document.getElementById('caseimage').style.backgroundColor=modelCaseColor;
+        // document.getElementById('caseimage').style.backgroundColor=modelCaseColor;
         document.getElementById('divJoystick').style.backgroundColor=modelCaseColor;
-        document.getElementById('caseimage').style.backgroundImage=myUrl;
+        //document.getElementById('caseimage').style.backgroundImage=myUrl;
       }
     },
     //Editor
