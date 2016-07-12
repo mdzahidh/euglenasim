@@ -11,16 +11,16 @@ MicroscopeView=function(properties) {
 
   //Properties
   this.name=properties.name;
-  this.width=properties.size.width; 
+  this.width=properties.size.width;
   this.height=properties.size.height;
 
-  //Mouse Hover 
+  //Mouse Hover
   var hoverProperties={
     name:'mouseHover',
-    index:-1, type:'x', size:10, 
+    index:-1, type:'x', size:10,
     color:0xffffff, highlightColor:0xffffff, doHighlight:false,
     point:{x:0, y:0, z:2},
-  }; 
+  };
   this.mouseHover=new MyPoint(hoverProperties);
   this.mouseHover.name=hoverProperties.name;
   this.mouseHoverSize=0;//hoverProperties.size;
@@ -33,26 +33,26 @@ MicroscopeView=function(properties) {
   this.position=new THREE.Vector3(0, 0, 0);
 
   //Light
-  this.hasLights=false; 
-  this.light=null; 
+  this.hasLights=false;
+  this.light=null;
   if(properties.light!==null && properties.light!==undefined) {
     if(properties.light.hasLight) {
-      this.hasLights=true; 
-      if(properties.light.lightSize===null || properties.light.lightSize===undefined) {properties.light.lightSize=10;} 
+      this.hasLights=true;
+      if(properties.light.lightSize===null || properties.light.lightSize===undefined) {properties.light.lightSize=10;}
       var lightProps={
         name:'squareLights', isTransparent:true, initOpacity:1.0, initColor:0xfff000,
         parentSize:{width:this.width, height:this.height},
         lightSize:{width:properties.light.lightSize, height:properties.light.lightSize},
         offsets:{x:1, y:1, z:1},
-      };  
+      };
       this.lights=new MyQuadLightsMesh(lightProps);
       this.lights.debugOn(properties.light.allOn);
       this.add(this.lights);
     }
   }
 
-  //Grid Lines	
-  this.hasGridLines=false; 
+  //Grid Lines
+  this.hasGridLines=false;
   this.gridLines=null;
   if(properties.grid!==null && properties.grid!==undefined) {
     if(properties.grid.hasGrid) {
@@ -97,7 +97,7 @@ MicroscopeView.prototype.resetData=function(properties) {
   this.loadedImages={};
   //Image
   this.properties=properties;
-  this.hasImage=false; 
+  this.hasImage=false;
   this.imageLightData=[];
   this.currentImage=null;
   this.currentImageFrame=0;
@@ -119,23 +119,23 @@ MicroscopeView.prototype.resetData=function(properties) {
       });
       //Finish Light Objects
       properties.image.lightData.sort(function(a, b) {return a.timestamp-b.timestamp;});
-      //Make play object 
+      //Make play object
       properties.image.lightData.forEach(function(obj) {obj.isImage=false;});
-      //Add as sequence and sort 
+      //Add as sequence and sort
       this.imageLightData=properties.image.images;
       this.imageLightData.forEach(function(item) {item.isImage=true;});
       this.imageLightData=this.imageLightData.concat(properties.image.lightData);
       this.imageLightData.sort(function(a, b) {return a.timestamp-b.timestamp;});
-      
+
       var tempLightData=properties.image.lightData;
-      //Create Slider light Data 
+      //Create Slider light Data
       for(var j=0;j<properties.image.images.length;j++) {
         var img=properties.image.images[j];
-        //Before First light data: set to zero 
+        //Before First light data: set to zero
         if(tempLightData[0].timestamp>img.timestamp) {
           img.lightData=[0, 0, 0, 0];
         } else {
-          //Serach for light data before image 
+          //Serach for light data before image
           var lastData=tempLightData[0];
           for(var i=0;i<tempLightData.length;i++) {
             var diff=tempLightData[i].timestamp-img.timestamp;
@@ -174,7 +174,7 @@ MicroscopeView.prototype.updateForPlaying=function(dt, stopPlay) {
         if(this.imageCounter>=5) {
           this.imageCounter=0;
           didChangeImage=true;
-        } 
+        }
         this.playImageFrame=playEvent.frameNumber;
         this.playImageTime=playEvent.frameTime;
         this.loadNewImage(playEvent.path, playEvent.timestamp, 'updateForPlaying');
@@ -200,6 +200,11 @@ MicroscopeView.prototype.setLightData=function(led1, led2, led3, led4) {
     top:led1, right:led2, bottom:led3, left:led4
   };
   this.lights.setOpacity(led1, led2, led3, led4);
+
+  $("#topLabel").text(Math.round(led1*100/255));
+  $("#rightLabel").text(Math.round(led2*100/255));
+  $("#bottomLabel").text(Math.round(led3*100/255));
+  $("#leftLabel").text(Math.round(led4*100/255));
 };
 
 //Images
@@ -232,7 +237,7 @@ MicroscopeView.prototype.loadNewImage=function(path, timestamp, from) {
     me.add(me.backgroundImage);
   } else {
     var l_imageLoaded=function (dat) {
-      //Remove Old Image 
+      //Remove Old Image
       if(me.backgroundImage) {me.remove(me.backgroundImage);}
       //Create new Background Image
       var material=new THREE.MeshBasicMaterial({color:0xffffff, map:texture});
@@ -277,7 +282,7 @@ MicroscopeView.prototype.addPointToStaticPath=function(point, frameNumber) {
   };
   var newPoint=this.staticPath.addPoint(point);
   newPoint.frameNumber=frameNumber;
-  this.add(newPoint); 
+  this.add(newPoint);
   //this.staticPath.setHighlightPoint(this.currentImageFrame);
 };
 MicroscopeView.prototype.createNewSetPath=function(props) {
@@ -308,7 +313,7 @@ MicroscopeView.prototype.addPointToPath=function(point, frameNumber) {
   };
   var newPoint=this.newPath.addPoint(point);
   newPoint.frameNumber=frameNumber;
-  this.add(newPoint); 
+  this.add(newPoint);
   //this.newPath.setHighlightPoint(this.currentImageFrame);
 };
 MicroscopeView.prototype.setHighlightPoint=function(imageFrameNumber) {
@@ -329,7 +334,7 @@ MicroscopeView.prototype.getNewPathPoints=function() {
   var retPoints=[];
   for(var i=0;i<this.newPath.points.length;i++) {
     var pt={
-      x:this.newPath.points[i].position.x, 
+      x:this.newPath.points[i].position.x,
       y:this.newPath.points[i].position.y,
       frameNumber:this.newPath.points[i].frameNumber,
     };
@@ -349,7 +354,7 @@ MicroscopeView.prototype.setMousePoint=function(mousePosition) {
   this.mouseHover.toggleVisible(true);
   if(this.mouseHover!==null && this.mouseHover!==undefined) {
     this.mouseHover.setPosition({
-      x:mousePosition.x+this.mouseHoverSize, 
+      x:mousePosition.x+this.mouseHoverSize,
       y:mousePosition.y+this.mouseHoverSize,
       z:this.mouseHover.position.z
     });

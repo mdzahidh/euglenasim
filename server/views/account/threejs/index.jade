@@ -27,6 +27,35 @@ block feet
   link(rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css")
   script(src="http://code.jquery.com/ui/1.11.4/jquery-ui.js")
 
+  style.
+    #topLabel {
+      position:absolute;
+      z-index:10;
+      top:0;
+      left:50%;
+    }
+
+    #rightLabel {
+      position:absolute;
+      z-index:10;
+      top:280px;
+      right:1%;
+    }
+
+    #bottomLabel {
+      position:absolute;
+      z-index:10;
+      top:540px;
+      left:50%;
+    }
+
+    #leftLabel {
+      position:absolute;
+      z-index:10;
+      top:280px;
+      left:1%;
+    }
+
 block body
   div.main-header
     div.col-xs-10.col-sm-10.col-md-8.col-lg-8(style='margin:0% 0% 0% 0%; padding:0px 0% 0px 0px; width:75%; height:100%; background-color:#e0efff; background-repeat:no-repeat; background-image:url("/media/scaleImage.png");')
@@ -35,6 +64,10 @@ block body
   div.row.main-row#MainRow
     div.col-xs-10.col-sm-10.col-md-8.col-lg-8.main-row-main-col
       div.row#trackingview.main-row-main-col-subrow-view
+        label#topLabel 100
+        label#rightLabel 100
+        label#bottomLabel 100
+        label#leftLabel 100
       div.row.main-row-main-col-subrow-info
         div#imageSlider
         div.col-xs-12(background-color:'#ff0000')
