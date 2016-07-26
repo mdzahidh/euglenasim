@@ -48,7 +48,7 @@ exports.init = function(req, res, next){
         console.log('get model paratemers for sesion error:'+err);
         outcome.newModelParameters=req.app.db.models.ModelParameters();
         return callback(null);
-      } else if(docs.length>0) {
+      } else if(docs.length > 0) {
         if(false) { 
         docs.sort(function(objA, objB) {return objA.creationTime-objB.creationTime;});
         docs.forEach(function(doc) {
@@ -65,7 +65,7 @@ exports.init = function(req, res, next){
 
         var newDoc=req.app.db.models.ModelParameters();
         newDoc.creationTime=new Date().getTime();
-        newDoc.saveType='renderRefresh';
+        newDoc.saveType='refresh';
         newDoc.user.id=outcome.user._id;
         newDoc.user.sessionID=req.sessionID;
         newDoc.user.name=outcome.user.username;
@@ -153,7 +153,7 @@ exports.init = function(req, res, next){
       getAccountData, 
       getUserData, 
       getSetPathAndImageset, 
-      getNewModelParameters, 
+      getNewModelParameters,
   ], asyncFinally);
 };
 
