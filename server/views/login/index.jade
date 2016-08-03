@@ -54,6 +54,10 @@ block body
           |<%- err %>
         |<% }); %>
       div.form-group(class!='<%- errfor.username ? "has-error" : "" %>')
+        div.alert.alert-warning
+          strong
+            | If you can't login despite having a correct account/password, it may mean that your browser's Cookie is turned off. This website requires browser Cookie to be turned on to work properly.
+            | By default, Cookies are usually turned on unless you have turned them off in the past.
         label Username or Email:
         input.form-control(type='text', name='username', value!='<%= username %>')
         span.help-block <%- errfor.username %>
@@ -61,6 +65,7 @@ block body
         label Password:
         input.form-control(type='password', name='password', value!='<%= password %>')
         span.help-block <%- errfor.password %>
+
       div.form-actions
         button.btn.btn-primary.btn-login(type='button') Sign In
         |&nbsp;
