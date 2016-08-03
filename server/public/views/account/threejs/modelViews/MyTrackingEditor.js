@@ -70,6 +70,8 @@ MyTrackingEditor=function(app) {
     saveParameters: function() {
       var me=this;
       var setObj={_id:me.model.id};
+      setObj.actualUser = app.mainView.user.attributes;
+
       Object.keys(me.model.attributes).forEach(function(name) {
         var textbox=me.$el.find('[name="'+ name +'"]')['0'];
         console.log('Setting value of: ' + name);

@@ -157,7 +157,7 @@ exports.init = function(req, res, next){
   ], asyncFinally);
 };
 
-exports.update=function(req, res, next) {
+  exports.update=function(req, res, next) {
   console.log('update');
   var outcome={}; 
   var workflow=req.app.utility.workflow(req, res);
@@ -167,8 +167,10 @@ exports.update=function(req, res, next) {
     newDoc.creationTime=new Date().getTime();
     newDoc.saveType='renderRefresh';
     newDoc.user.sessionID=req.body.user.sessionID;
-    newDoc.user.id=req.body.user.id;
-    newDoc.user.name=req.body.user.name;
+    // newDoc.user.id=req.body.user.id;
+    // newDoc.user.name=req.body.user.name;
+    newDoc.user.name = req.body.actualUser.username;
+    newDoc.user.id = req.body.actualUser._id;
     newDoc.surge=req.body.surge;
     newDoc.coupling=req.body.coupling;
     newDoc.roll=req.body.roll;
