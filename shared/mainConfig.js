@@ -10,16 +10,16 @@ var isProduction=true;
 var didFindServer=false;
 parts.forEach(function(part) {
   if(!didFindServer) {
-    if(part==='master_euglenalab12') {
+    if(part==="master_euglenasim") {
       isProduction=true;
       isDevTesting=false;
       didFindServer=true;
       liveUserLabTime=60*1000;
       liveMuseumUserLabTime=25*60*1000;
-    } //else if(part==='master_euglenasim') {
-    else{
-      isDev=true;
-      isDevTesting=false;
+    } 
+    else if(part==='stage_euglenasim') {    
+      isDev=false;
+      isDevTesting=true;
       didFindServer=true;
       liveUserLabTime=0.5*30*1000;
       liveMuseumUserLabTime=10*60*1000;
@@ -33,16 +33,16 @@ var exports=module.exports={
     isProduction:isProduction,
     getMongoUri:function() {
       var dbName='test';
-      if(this.isDevTesting) dbName='test';
+      if(this.isDevTesting) dbName='stage';
       else if(this.isDev) dbName='dev';
       else if(this.isProduction) dbName='master';
       return 'mongodb://localhost:27017/'+dbName;
     },
     getServerPort:function() {
       var port='5000';
-      if(this.isDevTesting) port='4300';
-      else if(this.isDev) port='8080';
-      else if(this.isProduction) port='3000';
+      if(this.isDevTesting) port='8888';
+      else if(this.isDev) port='8088';
+      else if(this.isProduction) port='8080';
       return port;
     },
     getServerAddr:function() {
